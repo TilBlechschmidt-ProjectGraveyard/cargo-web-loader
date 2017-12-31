@@ -1,18 +1,25 @@
 {
-  "name": "rust-loader",
+  "name": "cargo-web-loader",
   "version": "0.1.0",
   "private": true,
+  "main": "dist/index.js",
+  "author": "Til Blechschmidt <til@blechschmidt.de>",
+  "repository": "https://github.com/themegatb/cargo-web-loader",
+  "license": "MIT",
   "dependencies": {
     "async-child-process": "^1.1.1",
-    "babel-cli": "^6.26.0",
     "fs-extra": "^5.0.0",
     "loader-utils": "latest",
     "schema-utils": "^0.4.3",
     "toml": "^2.3.3",
     "webpack": "^3.10.0"
   },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  },
   "scripts": {
     "build": "babel index.js --out-dir dist",
-    "prepublish": "npm run build"
+    "prepare": "npm run build"
   }
 }
