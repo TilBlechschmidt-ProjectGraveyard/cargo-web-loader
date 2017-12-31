@@ -24,3 +24,6 @@ and then add it to your webpack config accordingly:
 },
 ```
 Finally you can import/require any Cargo.toml file and use it as documented in the [cargo-web](https://github.com/koute/cargo-web) project.
+
+#### Special thanks
+Credit goes to dflemstr and his [rust-native-wasm-loader](https://github.com/dflemstr/rust-native-wasm-loader) which provided the groundwork for this loader.
