@@ -2,7 +2,7 @@
 
 In order to use this loader you need to install it by cloning this repository:
 ```
-npm install --save git+https://github.com/themegatb/cargo-web-loader.git
+npm i --save cargo-web-loader
 ```
 and then add it to your webpack config accordingly:
 ```javascript
