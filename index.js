@@ -2,13 +2,15 @@ import {execAsync} from 'async-child-process';
 import fse from 'fs-extra';
 import loaderUtils from 'loader-utils';
 import path from 'path';
+import glob from 'glob';
 import toml from 'toml';
 
 const defaultConfig = {
     flags: '',
     bin: false,
     release: true,
-    verbose: false
+    verbose: false,
+    features: ""
 };
 
 const getCrateRoot = async function(childPath) {
@@ -31,6 +33,15 @@ const load = async function(self) {
     if (!crateRoot) {
         throw new Error('No Cargo.toml file found.');
     }
+
+    /// Add dependencies on the rust source files
+    // glob(`src/**/*.rs`, {
+    //     cwd: crateRoot
+    // }, (err, files) => {
+    //     console.log(err, files);
+    //     files.forEach( (file) => self.addDependency(file) );
+    // });
+    // self.dependency('src/wasm/websocket-api/Cargo.toml');
 
     /// Load the options and the Cargo.toml
     const opts = Object.assign(defaultConfig, loaderUtils.getOptions(self));
@@ -62,10 +73,7 @@ const load = async function(self) {
 
     /// Read the runtime and make it webpack-compatible
     // TODO The replace calls shouldn't be necessary but instead the runtime in the cargo-web repo should be adapted
-    runtimeFile = (await fse.readFile(runtimeFile, 'utf8'))
-        .replace(/fetch\((.+?)\)/g, `require('${wasmFile}')(__imports)`)
-        .replace('.then( response => response.arrayBuffer() )', '')
-        .replace('.then( bytes => WebAssembly.instantiate( bytes, __imports ) )', '');
+    runtimeFile = runtimeFile.replace(/fetch\((.+?)\)/g, `fetch(require('${wasmFile}'))`);
 
     return runtimeFile;
 };
