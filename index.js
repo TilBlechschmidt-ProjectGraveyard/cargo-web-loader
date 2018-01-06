@@ -73,9 +73,10 @@ const load = async function(self) {
 
     /// Read the runtime and make it webpack-compatible
     // TODO The replace calls shouldn't be necessary but instead the runtime in the cargo-web repo should be adapted
-    runtimeFile = runtimeFile.replace(/fetch\((.+?)\)/g, `fetch(require('${wasmFile}'))`);
+    const runtimeFileContent = await fse.readFile(runtimeFile, 'utf8');
+    runtimeFileContent = runtimeFileContent.replace(/fetch\((.+?)\)/g, `fetch(require('${wasmFile}'))`);
 
-    return runtimeFile;
+    return runtimeFileContent;
 };
 
 module.exports = function() {
