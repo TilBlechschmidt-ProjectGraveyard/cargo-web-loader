@@ -65,7 +65,8 @@ const load = async function(self) {
     runtimeFile = (await fse.readFile(runtimeFile, 'utf8'))
         .replace(/fetch\((.+?)\)/g, `require('${wasmFile}')(__imports)`)
         .replace('.then( response => response.arrayBuffer() )', '')
-        .replace('.then( bytes => WebAssembly.instantiate( bytes, __imports ) )', '');
+        .replace('.then( bytes => WebAssembly.instantiate( bytes, __imports ) )', '')
+        .replace('const', 'var');
 
     return runtimeFile;
 };
