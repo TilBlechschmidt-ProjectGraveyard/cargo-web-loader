@@ -1,7 +1,6 @@
 {
   "name": "cargo-web-loader",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.1.2",
   "main": "dist/index.js",
   "author": "Til Blechschmidt <til@blechschmidt.de>",
   "repository": "https://github.com/themegatb/cargo-web-loader",
