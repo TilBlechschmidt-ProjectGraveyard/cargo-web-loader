@@ -66,7 +66,8 @@ const load = async function(self) {
         .replace(/fetch\((.+?)\)/g, `require('${wasmFile}')(__imports)`)
         .replace('.then( response => response.arrayBuffer() )', '')
         .replace('.then( bytes => WebAssembly.instantiate( bytes, __imports ) )', '')
-        .replace('const', 'var');
+        .replace('const', 'var')
+        .replace('let', 'var');
 
     return runtimeFile;
 };
