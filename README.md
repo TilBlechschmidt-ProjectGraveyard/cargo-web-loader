@@ -8,19 +8,26 @@ and then add it to your webpack config accordingly:
 ```javascript
 // Cargo web crate loader
 {
-  test: /Cargo.toml$/,
-  use: {
-    loader: "cargo-web-loader",
-    options: {
-      bin: "websocket_api_web",
-      verbose: true
-    }
-  }
+    test: /Cargo.toml$/,
+    loaders: [
+      {
+        loader: "cargo-web-loader",
+        options: {
+            flags: '',
+            bin: false,
+            release: true,
+            verbose: false,
+            features: ""
+        }
+    }],
 },
 // WebAssembly loader. For testing purposes
 {
     test: /\.wasm$/,
-    loaders: ['wasm-loader']
+    loader: require.resolve('file-loader'),
+    options: {
+        name: 'static/wasm/[name].[hash:8].[ext]'
+    }
 },
 ```
 Finally you can import/require any Cargo.toml file and use it as documented in the [cargo-web](https://github.com/koute/cargo-web) project.
